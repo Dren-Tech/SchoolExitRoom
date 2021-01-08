@@ -2,8 +2,15 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\EscapeRoom;
 use App\Entity\Introduction;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class IntroductionCrudController extends AbstractCrudController
 {
@@ -12,14 +19,24 @@ class IntroductionCrudController extends AbstractCrudController
         return Introduction::class;
     }
 
-    /*
+    public function configureCrud(Crud $crud): Crud
+    {
+        return parent::configureCrud($crud)
+            ->setEntityLabelInPlural("Einführung")
+            ->setEntityLabelInSingular(fn(?Introduction $introduction) => $introduction ? sprintf('"%s"', $introduction->getTitle()) : 'Einführung')
+
+            ->setPaginatorPageSize(10)
+            ->setDefaultSort(['id' => 'DESC'])
+
+            ->setHelp('new', 'Hier können Sie eine neue Einführung für einen Escape-Room erstellen.');
+    }
+
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            TextField::new('title', 'Titel'),
+            AssociationField::new('escapeRoom'),
+            TextEditorField::new('text', 'Einführungstext'),
         ];
     }
-    */
 }
