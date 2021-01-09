@@ -59,6 +59,11 @@ class Riddle
      */
     private $riddleHints;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $successMessage;
+
     public function __construct()
     {
         $this->riddleHints = new ArrayCollection();
@@ -181,6 +186,18 @@ class Riddle
         if ($this->riddleHints->removeElement($riddleHint)) {
             $riddleHint->removeRiddle($this);
         }
+
+        return $this;
+    }
+
+    public function getSuccessMessage(): ?string
+    {
+        return $this->successMessage;
+    }
+
+    public function setSuccessMessage(string $successMessage): self
+    {
+        $this->successMessage = $successMessage;
 
         return $this;
     }
