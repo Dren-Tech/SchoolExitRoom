@@ -22,7 +22,7 @@ class IntroductionCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
-            ->setEntityLabelInPlural("Einführung")
+            ->setEntityLabelInPlural("Einführungen")
             ->setEntityLabelInSingular(fn(?Introduction $introduction) => $introduction ? sprintf('"%s"', $introduction->getTitle()) : 'Einführung')
 
             ->setPaginatorPageSize(10)
