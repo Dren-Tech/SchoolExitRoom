@@ -40,7 +40,7 @@ class RiddleCrudController extends AbstractCrudController
             TextField::new('entryCode', 'Einstiegscode')->hideOnIndex(),
             TextField::new('solutionCode', 'Lösungscode')->hideOnIndex()->setHelp("Code, der zum Lösen des Rätsels eingegeben werden muss."),
             BooleanField::new('isUnlocked', 'Ist freigeschalten')->hideOnIndex()->setHelp("Vorerst nicht benötigt."),
-            AssociationField::new('riddleHints')->hideOnIndex(),
+            AssociationField::new('riddleHints', 'Hinweis')->hideOnIndex(),
         ];
     }
 }

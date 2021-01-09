@@ -32,7 +32,7 @@ class RiddleHintCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title', 'Titel'),
-            TextEditorField::new('text', 'Hinweistect'),
+            TextEditorField::new('text', 'Hinweistext'),
             AssociationField::new('riddles', 'Rätsel'),
         ];
     }
