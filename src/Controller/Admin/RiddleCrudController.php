@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 
 class RiddleCrudController extends AbstractCrudController
 {
@@ -40,8 +41,9 @@ class RiddleCrudController extends AbstractCrudController
             TextEditorField::new('successMessage', 'Erfolgsmeldung')->hideOnIndex()->setHelp("Dieser Text wird angezeigt, wenn der korrekte Code eingegeben wurde."),
             TextField::new('entryCode', 'Einstiegscode')->hideOnIndex(),
             TextField::new('solutionCode', 'Lösungscode')->hideOnIndex()->setHelp("Code, der zum Lösen des Rätsels eingegeben werden muss."),
-            BooleanField::new('isUnlocked', 'Ist freigeschalten')->hideOnIndex()->setHelp("Vorerst nicht benötigt."),
             AssociationField::new('riddleHints', 'Hinweis')->hideOnIndex(),
+            UrlField::new('appLink','App Link')->hideOnIndex()->setHelp("Link zu einer externen App, etwa von LearningApps.org. Diese wird dann in das Rätsel eingebunden."),
+            BooleanField::new('isUnlocked', 'Ist freigeschalten')->hideOnIndex()->setHelp("Vorerst nicht benötigt."),
         ];
     }
 }
