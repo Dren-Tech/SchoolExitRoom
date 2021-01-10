@@ -8,8 +8,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 
 class RiddleCrudController extends AbstractCrudController
 {
@@ -33,15 +35,23 @@ class RiddleCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            FormField::addPanel("Allgemeine Daten")->setIcon("fa fa-info-circle"),
             TextField::new('identifier', 'Kenncode'),
             TextField::new('title', 'Titel'),
             AssociationField::new('escapeRoom'),
+
+            FormField::addPanel("Texte")->setIcon("fa fa-file-alt"),
             TextEditorField::new('text', 'Rätseltext'),
             TextEditorField::new('successMessage', 'Erfolgsmeldung')->hideOnIndex()->setHelp("Dieser Text wird angezeigt, wenn der korrekte Code eingegeben wurde."),
+
+            FormField::addPanel("Codes und Hinweise")->setIcon("fa fa-question-circle")->collapsible()->renderCollapsed()->setHelp("Codes zum Lösen des Rätsel sowie Hinweis für eben diese."),
             TextField::new('entryCode', 'Einstiegscode')->hideOnIndex(),
             TextField::new('solutionCode', 'Lösungscode')->hideOnIndex()->setHelp("Code, der zum Lösen des Rätsels eingegeben werden muss."),
-            BooleanField::new('isUnlocked', 'Ist freigeschalten')->hideOnIndex()->setHelp("Vorerst nicht benötigt."),
             AssociationField::new('riddleHints', 'Hinweis')->hideOnIndex(),
+
+            FormField::addPanel("Weitere Felder")->setIcon("fa fa-ellipsis-h")->collapsible()->renderCollapsed()->setHelp("Weitere, optionale Felder, die nicht bei jedem Rätsel verwendet werden müssen."),
+            UrlField::new('appLink','App Link')->hideOnIndex()->setHelp("Link zu einer externen App, etwa von LearningApps.org. Diese wird dann in das Rätsel eingebunden."),
+            BooleanField::new('isUnlocked', 'Ist freigeschalten')->hideOnIndex()->setHelp("Vorerst nicht benötigt."),
         ];
     }
 }
