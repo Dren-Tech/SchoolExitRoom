@@ -69,6 +69,11 @@ class Riddle
      */
     private $appLink;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $youtubeLink;
+
     public function __construct()
     {
         $this->riddleHints = new ArrayCollection();
@@ -215,6 +220,18 @@ class Riddle
     public function setAppLink(?string $appLink): self
     {
         $this->appLink = $appLink;
+
+        return $this;
+    }
+
+    public function getYoutubeLink(): ?string
+    {
+        return $this->youtubeLink;
+    }
+
+    public function setYoutubeLink(?string $youtubeLink): self
+    {
+        $this->youtubeLink = $youtubeLink;
 
         return $this;
     }
