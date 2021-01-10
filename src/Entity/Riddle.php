@@ -64,6 +64,11 @@ class Riddle
      */
     private $successMessage;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $appLink;
+
     public function __construct()
     {
         $this->riddleHints = new ArrayCollection();
@@ -198,6 +203,18 @@ class Riddle
     public function setSuccessMessage(string $successMessage): self
     {
         $this->successMessage = $successMessage;
+
+        return $this;
+    }
+
+    public function getAppLink(): ?string
+    {
+        return $this->appLink;
+    }
+
+    public function setAppLink(?string $appLink): self
+    {
+        $this->appLink = $appLink;
 
         return $this;
     }
