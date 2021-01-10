@@ -32,6 +32,11 @@ class Introduction
      */
     private $escapeRoom;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $youtubeLink;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class Introduction
     public function setEscapeRoom(?EscapeRoom $escapeRoom): self
     {
         $this->escapeRoom = $escapeRoom;
+
+        return $this;
+    }
+
+    public function getYoutubeLink(): ?string
+    {
+        return $this->youtubeLink;
+    }
+
+    public function setYoutubeLink(?string $youtubeLink): self
+    {
+        $this->youtubeLink = $youtubeLink;
 
         return $this;
     }
