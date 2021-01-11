@@ -21,6 +21,7 @@ class RiddleController extends AbstractController
     {
         return $this->render('frontend/riddle/detail.html.twig', [
             'controller_name' => 'RiddleController',
+            'code' => $riddleCode
         ]);
     }
 }
