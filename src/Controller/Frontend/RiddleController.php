@@ -2,12 +2,25 @@
 
 namespace App\Controller\Frontend;
 
+use App\Service\Entity\RiddleService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RiddleController extends AbstractController
 {
+    private RiddleService $riddleService;
+
+    /**
+     * RiddleController constructor.
+     * @param RiddleService $riddleService
+     */
+    public function __construct(RiddleService $riddleService)
+    {
+        $this->riddleService = $riddleService;
+    }
+
+
     #[Route('/riddle', name: 'frontend_riddle')]
     public function index(): Response
     {
@@ -16,12 +29,13 @@ class RiddleController extends AbstractController
         ]);
     }
 
-    #[Route('/riddle/{riddleCode}', name: 'frontend_riddle_detail')]
-    public function detail(string $riddleCode): Response
+    #[Route('/riddle/{riddleIdentifier}', name: 'frontend_riddle_detail')]
+    public function detail(string $riddleIdentifier): Response
     {
         return $this->render('frontend/riddle/detail.html.twig', [
             'controller_name' => 'RiddleController',
-            'code' => $riddleCode
+            'identifier' => $riddleIdentifier,
+            'riddle' => $this->riddleService->getRiddleByIdentifier($riddleIdentifier)
         ]);
     }
 }
