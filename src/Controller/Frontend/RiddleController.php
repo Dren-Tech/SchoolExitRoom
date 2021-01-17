@@ -2,6 +2,7 @@
 
 namespace App\Controller\Frontend;
 
+use App\Form\RiddleCodeFormType;
 use App\Service\Entity\RiddleService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,10 +33,13 @@ class RiddleController extends AbstractController
     #[Route('/riddle/{riddleIdentifier}', name: 'frontend_riddle_detail')]
     public function detail(string $riddleIdentifier): Response
     {
+        $codeForm = $this->createForm(RiddleCodeFormType::class);
+
         return $this->render('frontend/riddle/detail.html.twig', [
             'controller_name' => 'RiddleController',
             'identifier' => $riddleIdentifier,
-            'riddle' => $this->riddleService->getRiddleByIdentifier($riddleIdentifier)
+            'riddle' => $this->riddleService->getRiddleByIdentifier($riddleIdentifier),
+            'code_form' => $codeForm->createView()
         ]);
     }
 }
