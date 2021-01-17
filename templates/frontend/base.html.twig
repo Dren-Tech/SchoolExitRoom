@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block stylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,500i,600,600i&display=swap" rel="stylesheet" />
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <!--<menu>Menu</menu>-->
+
+    <div class="container mx-auto w-8/12 my-4">
+        {% block frontend_content %}{% endblock %}
+    </div>
+
+    <footer class="container mx-auto mt-6">
+        <div class="text-sm text-gray-500">
+            "School Exit Game" by Dren Tec
+        </div>
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
