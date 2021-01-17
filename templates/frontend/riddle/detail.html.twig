@@ -3,6 +3,14 @@
 {% block title %}{{ riddle.title }}{% endblock %}
 
 {% block frontend_content %}
+    {% if codeIsWrong %}
+    <div class="bg-red-500 mb-4 p-4">
+        <div class="text-white text-center text-2xl">
+            Der Code war leider falsch! Versuch es noch einmal oder schau dir einen Hinweis an.
+        </div>
+    </div>
+    {% endif %}
+
     <h1 class="text-2xl">{{ riddle.title }}</h1>
 
     <div class="my-4">
