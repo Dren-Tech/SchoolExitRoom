@@ -26,4 +26,8 @@ class RiddleService
         return $this->riddleRepository->findOneBy(['identifier' => $identifier]);
     }
 
+    function hashRiddleCode(string $code): string {
+        return hash("sha256", $code);
+    }
+
 }

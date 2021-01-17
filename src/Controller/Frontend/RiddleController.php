@@ -41,8 +41,11 @@ class RiddleController extends AbstractController
 
         // check if submitted code is correct
         if ($codeForm->isSubmitted() && $codeForm->isValid()) {
-            if (strtoupper($codeForm->get("code")->getData()) == $riddle->getSolutionCode()) {
-                echo "CODE IS CORRECT";
+            $code = strtoupper($codeForm->get("code")->getData());
+
+            if ($code == $riddle->getSolutionCode()) {
+                $hashedCode = $this->riddleService->hashRiddleCode($code);
+                return $this->redirectToRoute('frontend_riddle_success', ['riddleIdentifier' => $riddle->getIdentifier(), 'code' => $hashedCode]);
             } else {
                 echo "CODE IS WRONG";
             }
@@ -54,5 +57,21 @@ class RiddleController extends AbstractController
             'riddle' => $riddle,
             'code_form' => $codeForm->createView()
         ]);
+    }
+
+    #[Route('/riddle/{riddleIdentifier}/success/{code}', name: 'frontend_riddle_success')]
+    public function success(string $riddleIdentifier, string $code): Response
+    {
+        $riddle = $this->riddleService->getRiddleByIdentifier($riddleIdentifier);
+
+        $hashedCode = $this->riddleService->hashRiddleCode($riddle->getSolutionCode());
+
+        if($code == $hashedCode) {
+            return $this->render('frontend/riddle/success.html.twig', [
+                'riddle' => $riddle
+            ]);
+        } else {
+            echo "failure - redirect to riddle page";
+        }
     }
 }
