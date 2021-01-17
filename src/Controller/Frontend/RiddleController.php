@@ -47,15 +47,14 @@ class RiddleController extends AbstractController
                 $hashedCode = $this->riddleService->hashRiddleCode($code);
                 return $this->redirectToRoute('frontend_riddle_success', ['riddleIdentifier' => $riddle->getIdentifier(), 'code' => $hashedCode]);
             } else {
-                echo "CODE IS WRONG";
+                $codeIsWrong = true;
             }
         }
 
         return $this->render('frontend/riddle/detail.html.twig', [
-            'controller_name' => 'RiddleController',
-            'identifier' => $riddleIdentifier,
             'riddle' => $riddle,
-            'code_form' => $codeForm->createView()
+            'code_form' => $codeForm->createView(),
+            'codeIsWrong' => $codeIsWrong ?? false
         ]);
     }
 
