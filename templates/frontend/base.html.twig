@@ -9,7 +9,11 @@
 
 {% block body %}
     <menu>Menu</menu>
-    {% block frontend_content %}{% endblock %}
+
+    <div class="container mx-auto w-8/12">
+        {% block frontend_content %}{% endblock %}
+    </div>
+
     <footer>Footer</footer>
 {% endblock %}
 
