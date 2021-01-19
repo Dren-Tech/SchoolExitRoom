@@ -14,10 +14,9 @@ stages:
   - test
 
 frontend_build:
-  stage: build
+  stage: pre-build
   image: node:lts
   script:
-    - npm install -g yarn
     - yarn install
 
 docker-build-caddyphp-master:
