@@ -1,4 +1,4 @@
-FROM drentech / caddy-php
+FROM drentech/caddy-php
 
 # run migrations
 

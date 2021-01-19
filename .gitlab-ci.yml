@@ -22,6 +22,7 @@ frontend_build:
 composer:
   stage: pre-build
   script:
+    - rm -rf var/cache
     - composer install
 
 docker-build-caddyphp-master:
