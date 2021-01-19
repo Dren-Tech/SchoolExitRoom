@@ -1,6 +1,6 @@
 # This file is a template, and might need editing before it works on your project.
 # Select image from https://hub.docker.com/_/php/
-image: php:8
+image: dren-tech/school-exit-room/caddy-php:9-create-docker-container
 
 # Select what we should cache between builds
 cache:
@@ -21,7 +21,6 @@ frontend_build:
 
 composer:
   stage: pre-build
-  image: composer:2.0.8
   script:
     - composer install
 
