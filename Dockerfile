@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/dren-tech/school-exit-room/caddy-php:9-create-docker-container
+FROM drentech / caddy-php
 
 # run migrations
 
