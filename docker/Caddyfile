@@ -1,0 +1,5 @@
+:80
+
+root * /srv/app
+
+php_fastcgi localhost:9000

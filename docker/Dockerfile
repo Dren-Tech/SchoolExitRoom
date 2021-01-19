@@ -11,3 +11,13 @@ RUN apk update && apk add --no-cache php8-curl php8-iconv php8-intl php8-pdo php
 
 # install Caddy
 RUN apk update && apk add --no-cache caddy=$CADDY_VERSION
+
+# add Caddyfile
+COPY Caddyfile /etc/caddy
+
+# create app environment
+RUN mkdir -p /srv/app
+WORKDIR /srv/app
+COPY . /srv/app
+
+CMD php-fpm8 && caddy run
