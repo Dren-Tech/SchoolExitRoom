@@ -19,8 +19,16 @@
         {% endautoescape %}
     </div>
 
+    <div class="text-xl my-4 pdfView" data-pdf-url="{{ riddle.pdfDownloadLink }}" data-next-btn="next" data-prev-btn="prev" data-canvas-id="pdfCanvas">
+        <button id="prev">Previous</button>
+        <button id="next">Next</button>
+        &nbsp; &nbsp;
+        <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+        <canvas id="pdfCanvas"></canvas>
+    </div>
+
     <div class="text-xl my-4">
-        Lade dir das Raetsel herunter: <a class="underline hover:text-indigo-700" href="{{ riddle.pdfDownloadLink }}">Download</a>
+        Oder lade dir das Raetsel herunter: <a class="underline hover:text-indigo-700" href="{{ riddle.pdfDownloadLink }}">Download</a>
     </div>
 
     <div>
@@ -41,4 +49,10 @@
             </div>
         {{ form_end(code_form) }}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+    {{ encore_entry_script_tags('pdfView') }}
 {% endblock %}
