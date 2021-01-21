@@ -252,4 +252,9 @@ class Riddle
 
         return $this;
     }
+
+    public function getPdfDownloadLink(): string
+    {
+        return sprintf("/uploads/pdf/%s", $this->getPdfFilename());
+    }
 }

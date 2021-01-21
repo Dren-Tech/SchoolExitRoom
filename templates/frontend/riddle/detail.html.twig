@@ -19,6 +19,21 @@
         {% endautoescape %}
     </div>
 
+    <div class="my-4 pdfView" data-pdf-url="{{ riddle.pdfDownloadLink }}" data-next-btn="next" data-prev-btn="prev" data-canvas-id="pdfCanvas">
+
+        <div class="my-2 flex justify-between">
+            <button class="mr-2 w-24 py-1 border border-transparent text-lg rounded-md text-gray-700 bg-green-200 hover:bg-green-300" id="prev">Zurück</button>
+            <span class="text-lg">Seite: <span id="page_num"></span> / <span id="page_count"></span></span>
+            <button class="w-24 py-1 border border-transparent text-lg rounded-md text-gray-700 bg-green-200 hover:bg-green-300" id="next">Vor</button>
+        </div>
+
+        <canvas class="w-full" id="pdfCanvas"></canvas>
+    </div>
+
+    <div class="text-xl my-4">
+        Oder lade dir das Raetsel herunter: <a class="underline hover:text-indigo-700" href="{{ riddle.pdfDownloadLink }}">Download</a>
+    </div>
+
     <div>
         <hr>
     </div>
@@ -37,4 +52,10 @@
             </div>
         {{ form_end(code_form) }}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+    {{ encore_entry_script_tags('pdfView') }}
 {% endblock %}

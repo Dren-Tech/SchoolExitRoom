@@ -25,6 +25,7 @@
         "not dead"
     ],
     "dependencies": {
+        "pdfjs-dist": "^2.5.207",
         "postcss": "^8.2.4",
         "tailwindcss": "^2.0.2"
     }
