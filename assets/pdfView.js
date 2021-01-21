@@ -4,7 +4,7 @@ var pdfDoc = null,
     pageNum = 1,
     pageRendering = false,
     pageNumPending = null,
-    scale = 0.8,
+    scale = 1.8,
     canvas,
     ctx;
 
@@ -19,8 +19,6 @@ var pdfjsLib = window['pdfjs-dist/build/pdf'];
 
     // The workerSrc property shall be specified.
     pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
-
-    alert(url);
 
     canvas = document.getElementById(canvasId);
     ctx = canvas.getContext('2d');
