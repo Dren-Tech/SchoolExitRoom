@@ -10,4 +10,10 @@
             {{ riddle.successMessage|raw }}
         {% endautoescape %}
     </div>
+
+    {% if riddle.nextRiddle %}
+    <div class="my-4">
+        <a href="{{ path('frontend_riddle_detail', {'riddleIdentifier': riddle.nextRiddle.identifier}) }}" class="py-2 px-4 border border-transparent text-lg rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Hier gehts zum nächsten Rätsel</a>
+    </div>
+    {% endif %}
 {% endblock %}

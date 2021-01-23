@@ -40,6 +40,7 @@ class RiddleCrudController extends AbstractCrudController
             TextField::new('identifier', 'Kenncode'),
             TextField::new('title', 'Titel'),
             AssociationField::new('escapeRoom'),
+            AssociationField::new('nextRiddle', 'Nächstes Rätsel'),
 
             FormField::addPanel("Texte")->setIcon("fa fa-file-alt"),
             TextEditorField::new('text', 'Rätseltext'),
@@ -53,7 +54,7 @@ class RiddleCrudController extends AbstractCrudController
             FormField::addPanel("Weitere Felder")->setIcon("fa fa-ellipsis-h")->collapsible()->renderCollapsed()->setHelp("Weitere, optionale Felder, die nicht bei jedem Rätsel verwendet werden müssen."),
             UrlField::new('appLink','App Link')->hideOnIndex()->setHelp("Link zu einer externen App, etwa von LearningApps.org. Diese wird dann in das Rätsel eingebunden."),
             UrlField::new('youtubeLink', 'YouTube-Link')->hideOnIndex()->setHelp("Link zu einem YouTube-Video, wie er auf der YouTube-Seite unter 'Teilen' angezeigt wird.<br>Beispiel: https://youtu.be/lMFJvR199rg"),
-            ImageField::new("pdfFilename")->setUploadDir("./public/uploads/pdf"),
+            ImageField::new("pdfFilename")->setUploadDir("./public/uploads/pdf")->hideOnIndex(),
             BooleanField::new('isUnlocked', 'Ist freigeschalten')->hideOnIndex()->setHelp("Vorerst nicht benötigt."),
         ];
     }
