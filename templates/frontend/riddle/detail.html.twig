@@ -40,6 +40,20 @@
         </div>
     {% endif %}
 
+    {% if riddle.appLink %}
+        <div class="my-4">
+            Für dieses Rätsel gibt es eine App zum loesen. <a class="accordionLink underline hover:text-indigo-700" href="#" data-link-for-accordion-content="embedded-app">Oeffne sie hier!</a>
+
+            <div id="embedded-app" class="my-4 hidden">
+                <iframe class="w-full" height="500" src="https://learningapps.org/watch?v=p972ognfj21"></iframe>
+            </div>
+        </div>
+
+        <div>
+            <hr>
+        </div>
+    {% endif %}
+
     <div class="my-4">
         <h3 class="text-lg italic">Du hast das Rätsel geloest?</h3>
         <div>Dann gib hier den Code ein, den du heraus bekommen hast.</div>
