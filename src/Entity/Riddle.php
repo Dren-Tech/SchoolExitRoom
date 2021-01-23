@@ -79,6 +79,11 @@ class Riddle
      */
     private $pdfFilename;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Riddle::class)
+     */
+    private $nextRiddle;
+
     public function __construct()
     {
         $this->riddleHints = new ArrayCollection();
@@ -256,5 +261,17 @@ class Riddle
     public function getPdfDownloadLink(): string
     {
         return sprintf("/uploads/pdf/%s", $this->getPdfFilename());
+    }
+
+    public function getNextRiddle(): ?self
+    {
+        return $this->nextRiddle;
+    }
+
+    public function setNextRiddle(?self $nextRiddle): self
+    {
+        $this->nextRiddle = $nextRiddle;
+
+        return $this;
     }
 }
