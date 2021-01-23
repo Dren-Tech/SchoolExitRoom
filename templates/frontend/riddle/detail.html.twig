@@ -52,6 +52,27 @@
             </div>
         {{ form_end(code_form) }}
     </div>
+
+    <div>
+        <hr>
+    </div>
+
+    <div class="my-6">
+        <p>Benoetigst du Hilfe beim Loesen des Raetsel? Dann schaue dir hier die Hinweise an:</p>
+
+        <div>
+            {% for hint in riddle.riddleHints %}
+                <div class="my-3">
+                    <h4><a class="hint-accordion w-24 py-1 px-2 border border-transparent text-lg rounded-md text-gray-800 bg-gradient-to-r from-yellow-200 to-yellow-400 hover:from-yellow-500 hover:to-red-500" href="#" data-link-for-hint="hint-{{ hint.id }}">{{ hint.title }}</a></h4>
+
+                    <div id="hint-{{ hint.id }}" class="text-justify hidden py-2 px-6 border-bottom border-b">
+                        {{ hint.text|raw }}
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
