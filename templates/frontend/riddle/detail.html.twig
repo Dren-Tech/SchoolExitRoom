@@ -11,7 +11,13 @@
     </div>
     {% endif %}
 
-    <h1 class="text-2xl">{{ riddle.title }}</h1>
+    <h1 class="text-2xl text-center">{{ riddle.title }}</h1>
+
+    {% if riddle.youtubeLink %}
+        <div class="my-4 flex justify-center">
+            <iframe class="center" width="560" height="315" src="{{ riddle.youtubeEmbedLink }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    {% endif %}
 
     <div class="my-4">
         {% autoescape %}
@@ -45,7 +51,7 @@
             Für dieses Rätsel gibt es eine App zum loesen. <a class="accordionLink underline hover:text-indigo-700" href="#" data-link-for-accordion-content="embedded-app">Oeffne sie hier!</a>
 
             <div id="embedded-app" class="my-4 hidden">
-                <iframe class="w-full" height="500" src="https://learningapps.org/watch?v=p972ognfj21"></iframe>
+                <iframe class="w-full" height="500" src="{{ riddle.appLink }}"></iframe>
             </div>
         </div>
 

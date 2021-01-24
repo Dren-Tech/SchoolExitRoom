@@ -6,6 +6,7 @@ use App\Repository\RiddleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * @ORM\Entity(repositoryClass=RiddleRepository::class)
@@ -244,6 +245,14 @@ class Riddle
         $this->youtubeLink = $youtubeLink;
 
         return $this;
+    }
+
+    public function getYoutubeEmbedLink(): ?string
+    {
+        $stringExploded = explode("/", $this->getYoutubeLink());
+        $youtubeId = end($stringExploded);
+
+        return sprintf("https://www.youtube.com/embed/%s", $youtubeId);
     }
 
     public function getPdfFilename(): ?string
