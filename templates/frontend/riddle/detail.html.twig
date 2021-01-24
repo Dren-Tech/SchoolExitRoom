@@ -19,24 +19,40 @@
         {% endautoescape %}
     </div>
 
-    <div class="my-4 pdfView" data-pdf-url="{{ riddle.pdfDownloadLink }}" data-next-btn="next" data-prev-btn="prev" data-canvas-id="pdfCanvas">
+    {% if riddle.pdfFilename %}
+        <div class="my-4 pdfView" data-pdf-url="{{ riddle.pdfDownloadLink }}" data-next-btn="next" data-prev-btn="prev" data-canvas-id="pdfCanvas">
 
-        <div class="my-2 flex justify-between">
-            <button class="mr-2 w-24 py-1 border border-transparent text-lg rounded-md text-gray-700 bg-green-200 hover:bg-green-300" id="prev">Zurück</button>
-            <span class="text-lg">Seite: <span id="page_num"></span> / <span id="page_count"></span></span>
-            <button class="w-24 py-1 border border-transparent text-lg rounded-md text-gray-700 bg-green-200 hover:bg-green-300" id="next">Vor</button>
+            <div class="my-2 flex justify-between">
+                <button class="mr-2 w-24 py-1 border border-transparent text-lg rounded-md text-gray-700 bg-green-200 hover:bg-green-300" id="prev">Zurück</button>
+                <span class="text-lg">Seite: <span id="page_num"></span> / <span id="page_count"></span></span>
+                <button class="w-24 py-1 border border-transparent text-lg rounded-md text-gray-700 bg-green-200 hover:bg-green-300" id="next">Vor</button>
+            </div>
+
+            <canvas class="w-full" id="pdfCanvas"></canvas>
         </div>
 
-        <canvas class="w-full" id="pdfCanvas"></canvas>
-    </div>
+        <div class="text-xl my-4">
+            Oder lade dir das Raetsel herunter: <a class="underline hover:text-indigo-700" href="{{ riddle.pdfDownloadLink }}">Download</a>
+        </div>
 
-    <div class="text-xl my-4">
-        Oder lade dir das Raetsel herunter: <a class="underline hover:text-indigo-700" href="{{ riddle.pdfDownloadLink }}">Download</a>
-    </div>
+        <div>
+            <hr>
+        </div>
+    {% endif %}
 
-    <div>
-        <hr>
-    </div>
+    {% if riddle.appLink %}
+        <div class="my-4">
+            Für dieses Rätsel gibt es eine App zum loesen. <a class="accordionLink underline hover:text-indigo-700" href="#" data-link-for-accordion-content="embedded-app">Oeffne sie hier!</a>
+
+            <div id="embedded-app" class="my-4 hidden">
+                <iframe class="w-full" height="500" src="https://learningapps.org/watch?v=p972ognfj21"></iframe>
+            </div>
+        </div>
+
+        <div>
+            <hr>
+        </div>
+    {% endif %}
 
     <div class="my-4">
         <h3 class="text-lg italic">Du hast das Rätsel geloest?</h3>
@@ -63,7 +79,7 @@
         <div>
             {% for hint in riddle.riddleHints %}
                 <div class="my-3">
-                    <h4><a class="hint-accordion w-24 py-1 px-2 border border-transparent text-lg rounded-md text-gray-800 bg-gradient-to-r from-yellow-200 to-yellow-400 hover:from-yellow-500 hover:to-red-500" href="#" data-link-for-hint="hint-{{ hint.id }}">{{ hint.title }}</a></h4>
+                    <h4><a class="accordionLink w-24 py-1 px-2 border border-transparent text-lg rounded-md text-gray-800 bg-gradient-to-r from-yellow-200 to-yellow-400 hover:from-yellow-500 hover:to-red-500" href="#" data-link-for-accordion-content="hint-{{ hint.id }}">{{ hint.title }}</a></h4>
 
                     <div id="hint-{{ hint.id }}" class="text-justify hidden py-2 px-6 border-bottom border-b">
                         {{ hint.text|raw }}
