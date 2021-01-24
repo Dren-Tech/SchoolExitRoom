@@ -79,6 +79,7 @@
         <hr>
     </div>
 
+    {% if riddle.riddleHints|length > 0 %}
     <div class="my-6">
         <p>Benoetigst du Hilfe beim Loesen des Raetsel? Dann schaue dir hier die Hinweise an:</p>
 
@@ -95,6 +96,7 @@
             {% endfor %}
         </div>
     </div>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
