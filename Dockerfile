@@ -1,5 +1,5 @@
 FROM drentech/caddy-php
 
-# run migrations
+RUN composer install
 
 COPY . /srv/app
