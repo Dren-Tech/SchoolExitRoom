@@ -7,6 +7,7 @@ cache:
   paths:
     - vendor/
     - node_modules/
+    - public/build/
 
 stages:
   - pre-build
