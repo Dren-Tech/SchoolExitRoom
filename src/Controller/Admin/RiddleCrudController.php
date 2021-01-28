@@ -39,12 +39,12 @@ class RiddleCrudController extends AbstractCrudController
             FormField::addPanel("Allgemeine Daten")->setIcon("fa fa-info-circle"),
             TextField::new('identifier', 'Kenncode'),
             TextField::new('title', 'Titel'),
-            AssociationField::new('escapeRoom'),
+            AssociationField::new('escapeRoom')->setRequired(true),
             AssociationField::new('nextRiddle', 'Nächstes Rätsel'),
 
             FormField::addPanel("Texte")->setIcon("fa fa-file-alt"),
             TextEditorField::new('text', 'Rätseltext'),
-            TextEditorField::new('successMessage', 'Erfolgsmeldung')->hideOnIndex()->setHelp("Dieser Text wird angezeigt, wenn der korrekte Code eingegeben wurde."),
+            TextEditorField::new('successMessage', 'Erfolgsmeldung')->hideOnIndex()->setRequired(true)->setHelp("Dieser Text wird angezeigt, wenn der korrekte Code eingegeben wurde."),
 
             FormField::addPanel("Codes und Hinweise")->setIcon("fa fa-question-circle")->collapsible()->renderCollapsed()->setHelp("Codes zum Lösen des Rätsel sowie Hinweis für eben diese."),
             TextField::new('entryCode', 'Einstiegscode')->hideOnIndex(),
