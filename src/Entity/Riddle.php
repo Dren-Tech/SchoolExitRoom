@@ -187,11 +187,11 @@ class Riddle
     }
 
     /**
-     * @return Collection|RiddleHint[]
+     * @return RiddleHint[]
      */
-    public function getRiddleHints(): Collection
+    public function getRiddleHints(): array
     {
-        return $this->riddleHints;
+        return $this->riddleHints->toArray();
     }
 
     public function addRiddleHint(RiddleHint $riddleHint): self
