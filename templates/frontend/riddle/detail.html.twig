@@ -37,8 +37,8 @@
             <canvas class="w-full" id="pdfCanvas"></canvas>
         </div>
 
-        <div class="text-xl my-4">
-            Oder lade dir das Raetsel herunter: <a class="underline hover:text-indigo-700" href="{{ riddle.pdfDownloadLink }}">Download</a>
+        <div class="text-xl my-4 text-right">
+            <a class="underline hover:text-indigo-700" href="{{ riddle.pdfDownloadLink }}">Rätsel herunterladen</a>
         </div>
 
         <div>
@@ -60,19 +60,24 @@
         </div>
     {% endif %}
 
-    <div class="my-4">
-        <h3 class="text-lg italic">Du hast das Rätsel geloest?</h3>
-        <div>Dann gib hier den Code ein, den du heraus bekommen hast.</div>
+    <div class="my-4 flex justify-center items-center">
+        <div>
+            <img src="/img/schloss.png" alt="Schloss">
+        </div>
+        <div class="ml-6 text-center bg-green-200 rounded p-4">
+            <h3 class="text-2xl italic">Du hast das Rätsel gelöst?</h3>
+            <div>Dann gib hier den Code ein, den du heraus bekommen hast.</div>
 
-        {{ form_start(code_form) }}
+            {{ form_start(code_form) }}
             <div class="my-2">
-                {{ form_widget(code_form.code, { 'attr': {'class': 'h-8 w-128 text-xl text-green-600 px-2 text-center'} }) }}
+                {{ form_widget(code_form.code, { 'attr': {'class': 'h-8 w-128 text-xl text-green-600 px-2 text-center border rounded-md'} }) }}
             </div>
 
             <div class="my-2">
                 {{ form_widget(code_form.submit, { 'attr': {'class': 'py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'}, 'label': 'Abschicken' }) }}
             </div>
-        {{ form_end(code_form) }}
+            {{ form_end(code_form) }}
+        </div>
     </div>
 
     <div>
