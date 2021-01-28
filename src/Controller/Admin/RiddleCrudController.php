@@ -49,7 +49,7 @@ class RiddleCrudController extends AbstractCrudController
             FormField::addPanel("Codes und Hinweise")->setIcon("fa fa-question-circle")->collapsible()->renderCollapsed()->setHelp("Codes zum Lösen des Rätsel sowie Hinweis für eben diese."),
             TextField::new('entryCode', 'Einstiegscode')->hideOnIndex(),
             TextField::new('solutionCode', 'Lösungscode')->hideOnIndex()->setHelp("Code, der zum Lösen des Rätsels eingegeben werden muss."),
-            AssociationField::new('riddleHints', 'Hinweis')->hideOnIndex(),
+            AssociationField::new('riddleHints', 'Hinweis')->hideOnIndex()->setVirtual(true),
 
             FormField::addPanel("Weitere Felder")->setIcon("fa fa-ellipsis-h")->collapsible()->renderCollapsed()->setHelp("Weitere, optionale Felder, die nicht bei jedem Rätsel verwendet werden müssen."),
             UrlField::new('appLink','App Link')->hideOnIndex()->setHelp("Link zu einer externen App, etwa von LearningApps.org. Diese wird dann in das Rätsel eingebunden."),
