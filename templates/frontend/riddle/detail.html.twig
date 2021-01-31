@@ -14,11 +14,23 @@
     <h1 class="text-2xl text-center">{{ riddle.title }}</h1>
 
     {% if riddle.learnApps %}
-        <div class="flex">
+        <div class="flex md:mb-6 md:flex-col md:fixed md:right-4 md:w-20 text-sm text-center">
+            <h4 class="hidden md:block font-bold mb-2 text-lg">Apps</h4>
             {% for app in riddle.learnApps %}
                 
-                <a href="{{ app.link }}" title="{{ app.title }}" target="_blank">
-                    <img class="w-32 border" src="/img/learnAppIcons/{{ app.difficulty }}.png" alt="{{ app.title }}">
+                <a class="underline hover:text-indigo-700 md:border hover:border-indigo-700" href="{{ app.link }}" title="{{ app.title }}" target="_blank">
+                    <img class="" src="/img/learnAppIcons/{{ app.difficulty }}.png" alt="{{ app.title }}">
+                    Hier gehts zur
+
+                    {% if app.difficulty == "middle" %}
+                        mittleren
+                    {% elseif app.difficulty == "hard" %}
+                        schwierigen
+                    {% else %}
+                        leichten
+                    {% endif %}
+
+                    Variante
                 </a>
             {% endfor %}
         </div>
