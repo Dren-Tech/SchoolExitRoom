@@ -83,7 +83,7 @@ class Riddle
     private $nextRiddle;
 
     /**
-     * @ORM\ManyToMany(targetEntity=LearnApp::class, inversedBy="riddles")
+     * @ORM\ManyToMany(targetEntity=LearnApp::class, inversedBy="riddles", cascade={"persist"})
      */
     private $learnApps;
 
