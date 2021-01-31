@@ -13,6 +13,29 @@
 
     <h1 class="text-2xl text-center">{{ riddle.title }}</h1>
 
+    {% if riddle.learnApps %}
+        <div class="flex md:mb-6 md:flex-col md:fixed md:right-4 md:w-20 text-sm text-center">
+            <h4 class="hidden md:block font-bold mb-2 text-lg">Apps</h4>
+            {% for app in riddle.learnApps %}
+                
+                <a class="underline hover:text-indigo-700 md:border hover:border-indigo-700" href="{{ app.link }}" title="{{ app.title }}" target="_blank">
+                    <img class="" src="/img/learnAppIcons/{{ app.difficulty }}.png" alt="{{ app.title }}">
+                    Hier gehts zur
+
+                    {% if app.difficulty == "middle" %}
+                        mittleren
+                    {% elseif app.difficulty == "hard" %}
+                        schwierigen
+                    {% else %}
+                        leichten
+                    {% endif %}
+
+                    Variante
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     {% if riddle.youtubeLink %}
         <div class="my-4 flex justify-center">
             <iframe class="center" width="560" height="315" src="{{ riddle.youtubeEmbedLink }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -39,20 +62,6 @@
 
         <div class="text-xl my-4 text-right">
             <a class="underline hover:text-indigo-700" href="{{ riddle.pdfDownloadLink }}">Rätsel herunterladen</a>
-        </div>
-
-        <div>
-            <hr>
-        </div>
-    {% endif %}
-
-    {% if riddle.appLink %}
-        <div class="my-4">
-            Für dieses Rätsel gibt es eine App zum loesen. <a class="accordionLink underline hover:text-indigo-700" href="#" data-link-for-accordion-content="embedded-app">Oeffne sie hier!</a>
-
-            <div id="embedded-app" class="my-4 hidden">
-                <iframe class="w-full" height="500" src="{{ riddle.appLink }}"></iframe>
-            </div>
         </div>
 
         <div>

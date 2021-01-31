@@ -4,10 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\Introduction;
 use App\Entity\Riddle;
+use App\Form\LearnAppFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -51,8 +53,19 @@ class RiddleCrudController extends AbstractCrudController
             TextField::new('solutionCode', 'Lösungscode')->hideOnIndex()->setHelp("Code, der zum Lösen des Rätsels eingegeben werden muss."),
             AssociationField::new('riddleHints', 'Hinweis')->hideOnIndex()->setVirtual(true),
 
+
             FormField::addPanel("Weitere Felder")->setIcon("fa fa-ellipsis-h")->collapsible()->renderCollapsed()->setHelp("Weitere, optionale Felder, die nicht bei jedem Rätsel verwendet werden müssen."),
-            UrlField::new('appLink','App Link')->hideOnIndex()->setHelp("Link zu einer externen App, etwa von LearningApps.org. Diese wird dann in das Rätsel eingebunden."),
+            CollectionField::new('learnApps','Learn Apps')->hideOnIndex()
+                ->allowAdd()
+                ->allowDelete()
+                ->setEntryIsComplex(true)
+                ->setEntryType(LearnAppFormType::class)
+                ->setFormTypeOptions([
+                    'by_reference' => 'false'
+                ])
+                ->setHelp("Link zu einer externen App, etwa von LearningApps.org. Diese wird dann in das Rätsel eingebunden."),
+
+            //AssociationField::new('learnApps','Learn Apps')->setVirtual()->hideOnIndex()->setHelp("Link zu einer externen App, etwa von LearningApps.org. Diese wird dann in das Rätsel eingebunden."),
             UrlField::new('youtubeLink', 'YouTube-Link')->hideOnIndex()->setHelp("Link zu einem YouTube-Video, wie er auf der YouTube-Seite unter 'Teilen' angezeigt wird.<br>Beispiel: https://youtu.be/lMFJvR199rg"),
             ImageField::new("pdfFilename")->setUploadDir("./public/uploads/pdf")->hideOnIndex(),
             BooleanField::new('isUnlocked', 'Ist freigeschalten')->hideOnIndex()->setHelp("Vorerst nicht benötigt."),
