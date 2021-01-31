@@ -70,11 +70,6 @@ class Riddle
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $appLink;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $youtubeLink;
 
     /**
@@ -87,9 +82,15 @@ class Riddle
      */
     private $nextRiddle;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=LearnApp::class, inversedBy="riddles")
+     */
+    private $learnApps;
+
     public function __construct()
     {
         $this->riddleHints = new ArrayCollection();
+        $this->learnApps = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -225,18 +226,6 @@ class Riddle
         return $this;
     }
 
-    public function getAppLink(): ?string
-    {
-        return $this->appLink;
-    }
-
-    public function setAppLink(?string $appLink): self
-    {
-        $this->appLink = $appLink;
-
-        return $this;
-    }
-
     public function getYoutubeLink(): ?string
     {
         return $this->youtubeLink;
@@ -282,6 +271,30 @@ class Riddle
     public function setNextRiddle(?self $nextRiddle): self
     {
         $this->nextRiddle = $nextRiddle;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LearnApp[]
+     */
+    public function getLearnApps(): Collection
+    {
+        return $this->learnApps;
+    }
+
+    public function addLearnApp(LearnApp $learnApp): self
+    {
+        if (!$this->learnApps->contains($learnApp)) {
+            $this->learnApps[] = $learnApp;
+        }
+
+        return $this;
+    }
+
+    public function removeLearnApp(LearnApp $learnApp): self
+    {
+        $this->learnApps->removeElement($learnApp);
 
         return $this;
     }
