@@ -4,18 +4,44 @@
 
 {% block frontend_content %}
     {% if codeIsWrong %}
-    <div class="bg-red-500 mb-4 p-4">
-        <div class="text-white text-center text-2xl">
-            Der Code war leider falsch! Versuch es noch einmal oder schau dir einen Hinweis an.
+        <div class="bg-red-500 mb-4 p-4">
+            <div class="text-white text-center text-2xl">
+                Der Code war leider falsch! Versuch es noch einmal oder schau dir einen Hinweis an.
+            </div>
         </div>
-    </div>
     {% endif %}
 
     <h1 class="text-2xl text-center">{{ riddle.title }}</h1>
 
+    {% if riddle.learnApps %}
+        <div class="flex md:mb-6 md:flex-col md:fixed md:right-4 md:w-20 text-sm text-center">
+            <h4 class="hidden md:block font-bold mb-2 text-lg">Apps</h4>
+            {% for app in riddle.learnApps %}
+
+                <a class="underline hover:text-indigo-700 md:border hover:border-indigo-700" href="{{ app.link }}"
+                   title="{{ app.title }}" target="_blank">
+                    <img class="" src="/img/learnAppIcons/{{ app.difficulty }}.png" alt="{{ app.title }}">
+                    Hier gehts zur
+
+                    {% if app.difficulty == "middle" %}
+                        mittleren
+                    {% elseif app.difficulty == "hard" %}
+                        schwierigen
+                    {% else %}
+                        leichten
+                    {% endif %}
+
+                    Variante
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     {% if riddle.youtubeLink %}
         <div class="my-4 flex justify-center">
-            <iframe class="center" width="560" height="315" src="{{ riddle.youtubeEmbedLink }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe class="center" width="560" height="315" src="{{ riddle.youtubeEmbedLink }}" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
         </div>
     {% endif %}
 
@@ -26,12 +52,17 @@
     </div>
 
     {% if riddle.pdfFilename %}
-        <div class="my-4 pdfView" data-pdf-url="{{ riddle.pdfDownloadLink }}" data-next-btn="next" data-prev-btn="prev" data-canvas-id="pdfCanvas">
+        <div class="my-4 pdfView" data-pdf-url="{{ riddle.pdfDownloadLink }}" data-next-btn="next" data-prev-btn="prev"
+             data-canvas-id="pdfCanvas">
 
             <div class="my-2 flex justify-between">
-                <button class="mr-2 w-24 py-1 border border-transparent text-lg rounded-md text-gray-700 bg-green-200 hover:bg-green-300" id="prev">Zurück</button>
+                <button class="mr-2 w-24 py-1 border border-transparent text-lg rounded-md text-gray-700 bg-green-200 hover:bg-green-300"
+                        id="prev">Zurück
+                </button>
                 <span class="text-lg">Seite: <span id="page_num"></span> / <span id="page_count"></span></span>
-                <button class="w-24 py-1 border border-transparent text-lg rounded-md text-gray-700 bg-green-200 hover:bg-green-300" id="next">Vor</button>
+                <button class="w-24 py-1 border border-transparent text-lg rounded-md text-gray-700 bg-green-200 hover:bg-green-300"
+                        id="next">Vor
+                </button>
             </div>
 
             <canvas class="w-full" id="pdfCanvas"></canvas>
@@ -39,20 +70,6 @@
 
         <div class="text-xl my-4 text-right">
             <a class="underline hover:text-indigo-700" href="{{ riddle.pdfDownloadLink }}">Rätsel herunterladen</a>
-        </div>
-
-        <div>
-            <hr>
-        </div>
-    {% endif %}
-
-    {% if riddle.appLink %}
-        <div class="my-4">
-            Für dieses Rätsel gibt es eine App zum loesen. <a class="accordionLink underline hover:text-indigo-700" href="#" data-link-for-accordion-content="embedded-app">Oeffne sie hier!</a>
-
-            <div id="embedded-app" class="my-4 hidden">
-                <iframe class="w-full" height="500" src="{{ riddle.appLink }}"></iframe>
-            </div>
         </div>
 
         <div>
@@ -85,22 +102,32 @@
     </div>
 
     {% if riddle.riddleHints|length > 0 %}
-    <div class="my-6">
-        <p>Benoetigst du Hilfe beim Loesen des Raetsel? Dann schaue dir hier die Hinweise an:</p>
+        <div class="my-6">
+            <p>Benoetigst du Hilfe beim Loesen des Raetsel? Dann schaue dir hier die Hinweise an:</p>
 
-        <div>
-            {% for hint in riddle.riddleHints %}
-                <div class="my-3">
-                    <h4><a class="accordionLink w-24 py-1 px-2 border border-transparent text-lg rounded-md text-gray-800 bg-gradient-to-r from-yellow-200 to-yellow-400 hover:from-yellow-500 hover:to-red-500" href="#" data-link-for-accordion-content="hint-{{ hint.id }}">{{ hint.title }}</a></h4>
+            <div>
+                {% for hint in riddle.riddleHints %}
+                    <div class="my-3">
+                        <h4>
+                            <a class="accordionLink w-24 py-1 px-2 border border-transparent text-lg rounded-md text-gray-800 bg-gradient-to-r from-yellow-200 to-yellow-400 hover:from-yellow-500 hover:to-red-500"
+                               href="#" data-link-for-accordion-content="hint-{{ hint.id }}">{{ hint.title }}</a></h4>
 
-                    <div id="hint-{{ hint.id }}" class="text-justify hidden py-2 px-6 border-bottom border-b">
-                        {{ hint.text|raw }}
+                        <div id="hint-{{ hint.id }}" class="text-justify hidden py-2 px-6 border-bottom border-b">
+                            {{ hint.text|raw }}
+
+
+                            {% if hint.imageFilename %}
+                                <div class="mt-2">
+                                    <img src="/uploads/hint/{{ hint.imageFilename }}" alt="{{ hint.title }}">
+                                </div>
+                            {% endif %}
+
+                        </div>
+
                     </div>
-
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
     {% endif %}
 {% endblock %}
 

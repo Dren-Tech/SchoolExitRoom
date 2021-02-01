@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\RiddleHintRepository;
+use App\Repository\LearnAppRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=RiddleHintRepository::class)
+ * @ORM\Entity(repositoryClass=LearnAppRepository::class)
  */
-class RiddleHint
+class LearnApp
 {
     /**
      * @ORM\Id
@@ -22,31 +22,26 @@ class RiddleHint
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $text;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Riddle::class, inversedBy="riddleHints")
-     */
-    private $riddles;
+    private $link;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $imageFilename;
+    private $title;
+
+    /**
+     * @ORM\Column(type="string", length=25)
+     */
+    private $difficulty;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Riddle::class, mappedBy="learnApps")
+     */
+    private $riddles;
 
     public function __construct()
     {
         $this->riddles = new ArrayCollection();
-    }
-
-    public function __toString(): string
-    {
-        return $this->getTitle();
     }
 
     public function getId(): ?int
@@ -54,26 +49,38 @@ class RiddleHint
         return $this->id;
     }
 
+    public function getLink(): ?string
+    {
+        return $this->link;
+    }
+
+    public function setLink(string $link): self
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
         return $this;
     }
 
-    public function getText(): ?string
+    public function getDifficulty(): ?string
     {
-        return $this->text;
+        return $this->difficulty;
     }
 
-    public function setText(string $text): self
+    public function setDifficulty(string $difficulty): self
     {
-        $this->text = $text;
+        $this->difficulty = $difficulty;
 
         return $this;
     }
@@ -90,6 +97,7 @@ class RiddleHint
     {
         if (!$this->riddles->contains($riddle)) {
             $this->riddles[] = $riddle;
+            $riddle->addLearnApp($this);
         }
 
         return $this;
@@ -97,19 +105,9 @@ class RiddleHint
 
     public function removeRiddle(Riddle $riddle): self
     {
-        $this->riddles->removeElement($riddle);
-
-        return $this;
-    }
-
-    public function getImageFilename(): ?string
-    {
-        return $this->imageFilename;
-    }
-
-    public function setImageFilename(?string $imageFilename): self
-    {
-        $this->imageFilename = $imageFilename;
+        if ($this->riddles->removeElement($riddle)) {
+            $riddle->removeLearnApp($this);
+        }
 
         return $this;
     }
