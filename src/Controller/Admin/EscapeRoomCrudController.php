@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
+use Symfony\Component\HttpFoundation\Response;
 
 class EscapeRoomCrudController extends AbstractCrudController
 {
@@ -61,8 +62,12 @@ class EscapeRoomCrudController extends AbstractCrudController
     }
 
     // custom actions
-    public function viewQrCodes(AdminContext $context)
+    public function viewQrCodes(AdminContext $context): Response
     {
         $escapeRoom = $context->getEntity()->getInstance();
+
+        return $this->render('admin/escapeRoom/viewQrCodes.html.twig', [
+            'escapeRoom' => $escapeRoom,
+        ]);
     }
 }
