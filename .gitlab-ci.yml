@@ -42,6 +42,20 @@ docker-build-master:
   only:
     - master
 
+docker-build-production:
+  stage: build
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_TAG" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_TAG"
+  only:
+    - production
+
 docker-build:
   stage: build
   image: docker:latest
@@ -55,6 +69,7 @@ docker-build:
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
   except:
     - master
+    - production
 
 # Run our tests
 # If Xdebug was installed you can generate a coverage report and see code coverage metrics.
