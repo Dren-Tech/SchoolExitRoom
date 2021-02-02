@@ -43,11 +43,9 @@ docker-build-master:
   only:
     - master
 
-release:
+docker-build-production:
   stage: release
   image: docker:latest
-  rules:
-    - if: $CI_COMMIT_TAG
   services:
     - docker:dind
   before_script:
@@ -55,6 +53,16 @@ release:
   script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_TAG" .
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_TAG"
+  only:
+    - production
+  
+release_job:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  rules:
+    - if: $CI_COMMIT_TAG                  # Run this job when a tag is created manually
+  script:
+    - echo 'running release_job'
   release:
     name: 'Release $CI_COMMIT_TAG'
     description: 'New version $CI_COMMIT_TAG'
