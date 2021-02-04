@@ -3,7 +3,30 @@
 {% block content_title %}QR-Codes anzeigen für ¨{{ escapeRoom.title }}¨{% endblock %}
 
 {% block main %}
-<button class="btn btn-secondary" onclick="window.history.back()">
-    <span class="btn-label"><i class="action-icon fa fa-caret-left"></i> Zurück</span>
-</button>
+    <button class="btn btn-secondary" onclick="window.history.back()">
+        <span class="btn-label"><i class="action-icon fa fa-caret-left"></i> Zurück</span>
+    </button>
+
+    <div class="mt-4">
+        <h2>QR-Code für jedes Rätsel</h2>
+
+        <div>
+            {% for riddle in escapeRoom.riddles %}
+                <div>
+                    <h4>Rätsel "{{ riddle.title }}"</h4>
+                    <div>
+                        <strong>URL:</strong> <a target="_blank"
+                                                 href="{{ app.request.getSchemeAndHttpHost() ~ path('frontend_riddle_detail', {'riddleIdentifier': riddle.identifier}) }}">{{ app.request.getSchemeAndHttpHost() ~ path('frontend_riddle_detail', {'riddleIdentifier': riddle.identifier}) }}</a>
+                    </div>
+                    <div class="my-2">
+                        <img src="{{ qr_code_url(app.request.getSchemeAndHttpHost() ~ path('frontend_riddle_detail', {'riddleIdentifier': riddle.identifier}), { size: 150 }) }}"/>
+
+                        <a href="{{ qr_code_url(app.request.getSchemeAndHttpHost() ~ path('frontend_riddle_detail', {'riddleIdentifier': riddle.identifier}), { size: 150,writer: 'png' }) }}">QR-Code
+                            herunterladen</a>
+                    </div>
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
