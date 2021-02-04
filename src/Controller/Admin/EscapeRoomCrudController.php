@@ -26,7 +26,7 @@ class EscapeRoomCrudController extends AbstractCrudController
     {
         $actions = parent::configureActions($actions);
 
-        $viewQrCodes = Action::new('showQrCodes', 'QR-Codes fuer Raetsel anzeigen')
+        $viewQrCodes = Action::new('showQrCodes', 'QR-Codes fuer Rätsel anzeigen')
             ->linkToCrudAction('viewQrCodes');
 
         $actions->add(Crud::PAGE_INDEX, $viewQrCodes);
