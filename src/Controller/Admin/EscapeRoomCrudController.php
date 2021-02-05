@@ -3,19 +3,35 @@
 namespace App\Controller\Admin;
 
 use App\Entity\EscapeRoom;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
+use Symfony\Component\HttpFoundation\Response;
 
 class EscapeRoomCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
         return EscapeRoom::class;
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        $actions = parent::configureActions($actions);
+
+        $viewQrCodes = Action::new('showQrCodes', 'QR-Codes fuer Rätsel anzeigen')
+            ->linkToCrudAction('viewQrCodes');
+
+        $actions->add(Crud::PAGE_INDEX, $viewQrCodes);
+
+        return $actions;
     }
 
     public function configureCrud(Crud $crud): Crud
@@ -43,5 +59,15 @@ class EscapeRoomCrudController extends AbstractCrudController
             FormField::addPanel("Weitere Felder")->setIcon("fa fa-ellipsis-h")->collapsible()->renderCollapsed()->setHelp("Weitere, optionale Felder, die nicht bei jedem Rätsel verwendet werden müssen."),
             UrlField::new('youtubeLink', 'YouTube-Link')->hideOnIndex()->setHelp("Link zu einem YouTube-Video, wie er auf der YouTube-Seite unter 'Teilen' angezeigt wird.<br>Beispiel: https://youtu.be/lMFJvR199rg")
         ];
+    }
+
+    // custom actions
+    public function viewQrCodes(AdminContext $context): Response
+    {
+        $escapeRoom = $context->getEntity()->getInstance();
+
+        return $this->render('admin/escapeRoom/viewQrCodes.html.twig', [
+            'escapeRoom' => $escapeRoom,
+        ]);
     }
 }
