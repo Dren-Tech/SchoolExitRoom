@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\StudentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -35,6 +36,11 @@ class Student implements UserInterface
     private $password;
 
     /**
+     * @var string The plaintext password which will not be saved in DB
+     */
+    private $plainPassword;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $firstname;
@@ -48,6 +54,12 @@ class Student implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $class;
+
+    #[Pure] public function __toString(): string
+    {
+        return $this->getUsername();
+    }
+
 
     public function getId(): ?int
     {
@@ -107,6 +119,25 @@ class Student implements UserInterface
     }
 
     /**
+     * @return string
+     */
+    public function getPlainPassword(): string
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     * @return Student
+     */
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    /**
      * @see UserInterface
      */
     public function getSalt()
@@ -120,7 +151,7 @@ class Student implements UserInterface
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     public function getFirstname(): ?string

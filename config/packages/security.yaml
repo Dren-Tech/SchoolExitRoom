@@ -6,7 +6,7 @@ security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+        app_student_provider:
             entity:
                 class: App\Entity\Student
                 property: username
@@ -17,7 +17,7 @@ security:
         main:
             anonymous: true
             lazy: true
-            provider: app_user_provider
+            provider: app_student_provider
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

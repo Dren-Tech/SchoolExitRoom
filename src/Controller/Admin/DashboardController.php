@@ -6,6 +6,7 @@ use App\Entity\EscapeRoom;
 use App\Entity\Introduction;
 use App\Entity\Riddle;
 use App\Entity\RiddleHint;
+use App\Entity\Student;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -41,6 +42,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud("Hinweise", "fa fa-lightbulb", RiddleHint::class);
 
         yield MenuItem::section("Schüler*innen");
+        yield MenuItem::linkToCrud("Schüler*innen", "fa fa-user", Student::class);
 
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
