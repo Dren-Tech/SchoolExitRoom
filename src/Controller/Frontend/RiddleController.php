@@ -2,24 +2,31 @@
 
 namespace App\Controller\Frontend;
 
+use App\Entity\Student;
 use App\Form\RiddleCodeFormType;
+use App\Message\RiddleResultMessage;
 use App\Service\Entity\RiddleService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RiddleController extends AbstractController
 {
     private RiddleService $riddleService;
 
+    private MessageBusInterface $messageBus;
+
     /**
      * RiddleController constructor.
      * @param RiddleService $riddleService
+     * @param MessageBusInterface $messageBus
      */
-    public function __construct(RiddleService $riddleService)
+    public function __construct(RiddleService $riddleService, MessageBusInterface $messageBus)
     {
         $this->riddleService = $riddleService;
+        $this->messageBus = $messageBus;
     }
 
 
@@ -66,6 +73,12 @@ class RiddleController extends AbstractController
         $hashedCode = $this->riddleService->hashRiddleCode($riddle->getSolutionCode());
 
         if($code == $hashedCode) {
+            // fire event
+            $user = $this->getUser();
+            if($user instanceof Student) {
+                $this->messageBus->dispatch(new RiddleResultMessage($user->getId(),$riddle->getIdentifier(), "Erfolgreich"));
+            }
+
             return $this->render('frontend/riddle/success.html.twig', [
                 'riddle' => $riddle
             ]);
