@@ -87,10 +87,16 @@ class Riddle
      */
     private $learnApps;
 
+    /**
+     * @ORM\OneToMany(targetEntity=StudentRiddleResult::class, mappedBy="riddle")
+     */
+    private $studentResults;
+
     public function __construct()
     {
         $this->riddleHints = new ArrayCollection();
         $this->learnApps = new ArrayCollection();
+        $this->studentResults = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -295,6 +301,36 @@ class Riddle
     public function removeLearnApp(LearnApp $learnApp): self
     {
         $this->learnApps->removeElement($learnApp);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|StudentRiddleResult[]
+     */
+    public function getStudentResults(): Collection
+    {
+        return $this->studentResults;
+    }
+
+    public function addStudentResult(StudentRiddleResult $studentResult): self
+    {
+        if (!$this->studentResults->contains($studentResult)) {
+            $this->studentResults[] = $studentResult;
+            $studentResult->setRiddle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudentResult(StudentRiddleResult $studentResult): self
+    {
+        if ($this->studentResults->removeElement($studentResult)) {
+            // set the owning side to null (unless already changed)
+            if ($studentResult->getRiddle() === $this) {
+                $studentResult->setRiddle(null);
+            }
+        }
 
         return $this;
     }
