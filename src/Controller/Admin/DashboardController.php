@@ -7,6 +7,7 @@ use App\Entity\Introduction;
 use App\Entity\Riddle;
 use App\Entity\RiddleHint;
 use App\Entity\Student;
+use App\Entity\StudentRiddleResult;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -43,6 +44,7 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section("Schüler*innen");
         yield MenuItem::linkToCrud("Schüler*innen", "fa fa-user", Student::class);
+        yield MenuItem::linkToCrud("Rätsel-Ergebnisse", "fa fa-question", StudentRiddleResult::class);
 
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
