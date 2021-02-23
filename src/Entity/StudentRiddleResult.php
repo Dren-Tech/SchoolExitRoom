@@ -37,7 +37,12 @@ class StudentRiddleResult
     /**
      * @ORM\Column(type="datetime")
      */
-    private $resolveTime;
+    private \DateTime $resolveTime;
+
+    public function __toString(): string
+    {
+        return sprintf("'%s' von '%s' am %s mit '%s'", $this->riddle, $this->student, $this->resolveTime->format("d.m.Y"), $this->result);
+    }
 
     public function getId(): ?int
     {
