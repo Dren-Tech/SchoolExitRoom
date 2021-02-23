@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StudentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -54,6 +56,16 @@ class Student implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $class;
+
+    /**
+     * @ORM\OneToMany(targetEntity=StudentRiddleResult::class, mappedBy="student")
+     */
+    private $riddleResults;
+
+    public function __construct()
+    {
+        $this->riddleResults = new ArrayCollection();
+    }
 
     #[Pure] public function __toString(): string
     {
@@ -186,6 +198,36 @@ class Student implements UserInterface
     public function setClass(?string $class): self
     {
         $this->class = $class;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|StudentRiddleResult[]
+     */
+    public function getRiddleResults(): Collection
+    {
+        return $this->riddleResults;
+    }
+
+    public function addRiddleResult(StudentRiddleResult $riddleResult): self
+    {
+        if (!$this->riddleResults->contains($riddleResult)) {
+            $this->riddleResults[] = $riddleResult;
+            $riddleResult->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRiddleResult(StudentRiddleResult $riddleResult): self
+    {
+        if ($this->riddleResults->removeElement($riddleResult)) {
+            // set the owning side to null (unless already changed)
+            if ($riddleResult->getStudent() === $this) {
+                $riddleResult->setStudent(null);
+            }
+        }
 
         return $this;
     }
