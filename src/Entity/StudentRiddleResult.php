@@ -34,6 +34,11 @@ class StudentRiddleResult
      */
     private $result;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $resolveTime;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +76,18 @@ class StudentRiddleResult
     public function setResult(string $result): self
     {
         $this->result = $result;
+
+        return $this;
+    }
+
+    public function getResolveTime(): ?\DateTimeInterface
+    {
+        return $this->resolveTime;
+    }
+
+    public function setResolveTime(\DateTimeInterface $resolveTime): self
+    {
+        $this->resolveTime = $resolveTime;
 
         return $this;
     }

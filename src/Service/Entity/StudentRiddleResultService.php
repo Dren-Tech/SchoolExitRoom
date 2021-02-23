@@ -27,13 +27,14 @@ class StudentRiddleResultService
         $this->entityManager = $entityManager;
     }
 
-    public function saveResultForStudent(Student $student, Riddle $riddle, string $resultText)
+    public function saveResultForStudent(Student $student, Riddle $riddle, string $resultText, \DateTime $resolveTime)
     {
         $result = new StudentRiddleResult();
 
         $result->setStudent($student);
         $result->setRiddle($riddle);
         $result->setResult($resultText);
+        $result->setResolveTime($resolveTime);
 
         $this->entityManager->persist($result);
         $this->entityManager->flush();

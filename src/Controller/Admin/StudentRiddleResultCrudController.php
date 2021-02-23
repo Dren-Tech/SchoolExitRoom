@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class StudentRiddleResultCrudController extends AbstractCrudController
@@ -43,9 +44,10 @@ class StudentRiddleResultCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            AssociationField::new('student'),
-            AssociationField::new('riddle'),
-            TextField::new('result'),
+            AssociationField::new('student', "Schüler*in"),
+            AssociationField::new('riddle', "Rätsel"),
+            TextField::new('result', "Ergebnis"),
+            DateTimeField::new('resolveTime', "Zeitpunkt der Lösung"),
         ];
     }
 }

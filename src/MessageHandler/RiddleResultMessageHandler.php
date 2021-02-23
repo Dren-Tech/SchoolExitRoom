@@ -42,6 +42,6 @@ final class RiddleResultMessageHandler implements MessageHandlerInterface
         $riddle = $this->riddleService->getRiddleByIdentifier($message->getRiddleIdentifier());
         $student = $this->studentService->getStudentById($message->getStudentId());
 
-        $this->resultService->saveResultForStudent($student, $riddle, $message->getResult());
+        $this->resultService->saveResultForStudent($student, $riddle, $message->getResult(), $message->getResolveTime());
     }
 }

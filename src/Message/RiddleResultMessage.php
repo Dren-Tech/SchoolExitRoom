@@ -10,17 +10,21 @@ final class RiddleResultMessage
 
     private string $result;
 
+    private \DateTime $resolveTime;
+
     /**
      * RiddleResultMessage constructor.
      * @param int $studentId
      * @param string $riddleIdentifier
      * @param string $result
      */
-    public function __construct(int $studentId, string $riddleIdentifier, string $result)
+    public function __construct(int $studentId, string $riddleIdentifier, string $result, \DateTime $resolveTime = null)
     {
         $this->studentId = $studentId;
         $this->riddleIdentifier = $riddleIdentifier;
         $this->result = $result;
+
+        $this->resolveTime = $resolveTime ?? new \DateTime();
     }
 
     /**
@@ -47,4 +51,11 @@ final class RiddleResultMessage
         return $this->result;
     }
 
+    /**
+     * @return \DateTime
+     */
+    public function getResolveTime(): \DateTime
+    {
+        return $this->resolveTime;
+    }
 }
