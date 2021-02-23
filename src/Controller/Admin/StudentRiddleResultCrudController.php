@@ -7,6 +7,7 @@ use App\Entity\StudentRiddleResult;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -50,4 +51,13 @@ class StudentRiddleResultCrudController extends AbstractCrudController
             DateTimeField::new('resolveTime', "Zeitpunkt der Lösung"),
         ];
     }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add("riddle")
+            ->add("student");
+    }
+
+
 }
