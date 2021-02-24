@@ -1,6 +1,9 @@
 {
+    "name": "School-Exit-Room",
+    "description": "Software to create and run exitrooms in school.",
+    "version": "0.0.6",
     "type": "project",
-    "license": "proprietary",
+    "license": "AGPL-3.0-only",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
