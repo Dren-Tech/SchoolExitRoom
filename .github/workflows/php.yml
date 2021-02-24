@@ -70,18 +70,23 @@ jobs:
   build_docker:
     needs: [build_php,build_js]
     runs-on: ubuntu-20.04
-    container: drentech/caddy-php
 
     steps:
     - uses: actions/checkout@v2
     
     - uses: actions/download-artifact@v2
+      with:
+        name: frontend-artifact
+        
+    - uses: actions/download-artifact@v2
+      with:
+        name: composer-artifact
 
     - name: Show files
       run: ls -lsa
 
     - name: Push to GitHub Packages
-      uses: docker/build-push-action@v2.3.0
+      uses: docker/build-push-action@v2
       with:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
