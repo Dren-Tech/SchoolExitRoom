@@ -1,15 +1,14 @@
 name: PHP Composer
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push, pull_request]
+#  push:
+#    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
 
 jobs:
   build_php:
-
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container: drentech/caddy-php
 
     steps:
