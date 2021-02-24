@@ -7,9 +7,10 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build_php:
 
     runs-on: ubuntu-latest
+    container: drentech/caddy-php
 
     steps:
     - uses: actions/checkout@v2
