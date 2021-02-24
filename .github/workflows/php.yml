@@ -30,6 +30,12 @@ jobs:
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
       
+    - name: Save Composer dependencies as artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: composer-artifact
+        path: vendor
+      
   build_js:
     runs-on: ubuntu-20.04
     container: node:lts
@@ -52,6 +58,14 @@ jobs:
       
     - name: Build frontend
       run: yarn encore prod
+      
+    - name: Save frontend as artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: frontend-artifact
+        path: |
+          public/build
+          public/bundles
 
   build_docker:
     needs: [build_php,build_js]
@@ -60,17 +74,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
+    - uses: actions/download-artifact@v2
 
     - name: Show files
       run: ls -lsa
 
     - name: Push to GitHub Packages
-      uses: docker/build-push-action@v1
+      uses: docker/build-push-action@v2.3.0
       with:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: docker.pkg.github.com
-        repository: drentech/schoolexitroom
+        tags: drentech/schoolexitroom:latest
         tag_with_ref: true
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
