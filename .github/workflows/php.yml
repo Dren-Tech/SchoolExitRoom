@@ -53,6 +53,26 @@ jobs:
     - name: Build frontend
       run: yarn encore prod
 
+  build_docker:
+    needs: [build_php,build_js]
+    runs-on: ubuntu-20.04
+    container: drentech/caddy-php
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Show files
+      run: ls -lsa
+
+    - name: Push to GitHub Packages
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: docker.pkg.github.com
+        repository: drentech/schoolexitroom
+        tag_with_ref: true
+
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
