@@ -62,6 +62,11 @@ class Student implements UserInterface
      */
     private $riddleResults;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastLoginTime;
+
     public function __construct()
     {
         $this->riddleResults = new ArrayCollection();
@@ -228,6 +233,18 @@ class Student implements UserInterface
                 $riddleResult->setStudent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLastLoginTime(): ?\DateTimeInterface
+    {
+        return $this->lastLoginTime;
+    }
+
+    public function setLastLoginTime(?\DateTimeInterface $lastLoginTime): self
+    {
+        $this->lastLoginTime = $lastLoginTime;
 
         return $this;
     }
