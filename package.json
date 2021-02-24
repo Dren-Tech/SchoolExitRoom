@@ -1,5 +1,5 @@
 {
-    "name": "School-Exit-Room",
+    "name": "school-exit-room",
     "version": "0.0.6",
     "devDependencies": {
         "@symfony/stimulus-bridge": "^1.1.0",

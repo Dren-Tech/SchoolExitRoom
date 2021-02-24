@@ -1,5 +1,5 @@
 {
-    "name": "School-Exit-Room",
+    "name": "dren/school-exit-room",
     "description": "Software to create and run exitrooms in school.",
     "version": "0.0.6",
     "type": "project",
@@ -10,7 +10,7 @@
         "php": ">=8.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "composer/package-versions-deprecated": "1.11.99.1",
+        "composer/package-versions-deprecated": "^1.11.99",
         "doctrine/annotations": "^1.11",
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^3.0",
