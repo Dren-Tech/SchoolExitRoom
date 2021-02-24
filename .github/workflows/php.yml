@@ -26,9 +26,32 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - name: Install dependencies
+    - name: Install Composer dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
+      
+  build_js:
+    runs-on: ubuntu-20.04
+    container: node:lts
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Cache Node packages
+      id: node-cache
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+          
+    - name: Install Node dependencies
+      if: steps.node-cache.outputs.cache-hit != 'true'
+      run: yarn install
+      
+    - name: Build frontend
+      run: yarn encore prod
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
