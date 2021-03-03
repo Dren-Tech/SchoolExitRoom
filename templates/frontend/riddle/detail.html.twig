@@ -13,7 +13,7 @@
 
     <h1 class="text-2xl text-center">{{ riddle.title }}</h1>
 
-    {% if riddle.learnApps %}
+    {% if riddle.learnApps|length > 0  %}
         <div class="flex md:mb-6 md:flex-col md:fixed md:right-4 md:w-20 text-sm text-center">
             <h4 class="hidden md:block font-bold mb-2 text-lg">Apps</h4>
             {% for app in riddle.learnApps %}
