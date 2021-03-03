@@ -13,8 +13,8 @@
 
     <h1 class="text-2xl text-center">{{ riddle.title }}</h1>
 
-    {% if riddle.learnApps|length > 0  %}
-        <div class="flex md:mb-6 md:flex-col md:fixed md:right-4 md:w-20 text-sm text-center">
+    <div class="flex md:mb-6 md:flex-col md:fixed md:right-4 md:w-20 text-sm text-center">
+        {% if riddle.learnApps|length > 0  %}
             <h4 class="hidden md:block font-bold mb-2 text-lg">Apps</h4>
             {% for app in riddle.learnApps %}
 
@@ -34,8 +34,16 @@
                     Variante
                 </a>
             {% endfor %}
+        {% endif %}
+        
+        <div>
+            <a href="#riddle-solution-form">
+                <img class="animate-bounce" src="/img/ratsel-hinweis-pfeil-zuschnitt.png" alt="Hinweis auf Lösung">
+                <span class="font-bold hover:underline">Runter scrollen und Code eingeben.</span>
+            </a>
         </div>
-    {% endif %}
+    </div>
+
 
     {% if riddle.youtubeLink %}
         <div class="my-4 flex justify-center">
@@ -83,7 +91,7 @@
         </div>
     {% endif %}
 
-    <div class="my-4 flex justify-center items-center">
+    <div class="my-4 flex justify-center items-center" id="riddle-solution-form">
         <div>
             <img src="/img/schloss.png" alt="Schloss">
         </div>
