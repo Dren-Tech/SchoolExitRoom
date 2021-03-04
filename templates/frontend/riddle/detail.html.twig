@@ -18,7 +18,7 @@
             <h4 class="hidden md:block font-bold mb-2 text-lg">Apps</h4>
             {% for app in riddle.learnApps %}
 
-                <a class="underline hover:text-indigo-700 md:border hover:border-indigo-700" href="{{ app.link }}"
+                <a class="underline hover:text-indigo-700 w-16 md:w-full md:border hover:border-indigo-700" href="{{ app.link }}"
                    title="{{ app.title }}" target="_blank">
                     <img class="" src="/img/learnAppIcons/{{ app.difficulty }}.png" alt="{{ app.title }}">
                     Hier gehts zur
@@ -36,9 +36,9 @@
             {% endfor %}
         {% endif %}
         
-        <div>
+        <div class="md:mt-6 hidden md:block">
             <a href="#riddle-solution-form">
-                <img class="animate-bounce" src="/img/ratsel-hinweis-pfeil-zuschnitt.png" alt="Hinweis auf Lösung">
+                <img class="md:animate-bounce" src="/img/ratsel-hinweis-pfeil-zuschnitt.png" alt="Hinweis auf Lösung">
                 <span class="font-bold hover:underline">Runter scrollen und Code eingeben.</span>
             </a>
         </div>
