@@ -67,6 +67,11 @@ class Student implements UserInterface
      */
     private $lastLoginTime;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isAdmin;
+
     public function __construct()
     {
         $this->riddleResults = new ArrayCollection();
@@ -109,6 +114,10 @@ class Student implements UserInterface
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
         $roles[] = 'ROLE_STUDENT';
+
+        if($this->isAdmin) {
+            $roles[] = 'ROLE_ADMIN';
+        }
 
         return array_unique($roles);
     }
@@ -245,6 +254,18 @@ class Student implements UserInterface
     public function setLastLoginTime(?\DateTimeInterface $lastLoginTime): self
     {
         $this->lastLoginTime = $lastLoginTime;
+
+        return $this;
+    }
+
+    public function getIsAdmin(): ?bool
+    {
+        return $this->isAdmin;
+    }
+
+    public function setIsAdmin(bool $isAdmin): self
+    {
+        $this->isAdmin = $isAdmin;
 
         return $this;
     }
